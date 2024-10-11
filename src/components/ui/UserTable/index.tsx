@@ -1,6 +1,6 @@
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
-import Avatar from '../Avatar/Avatar';
-import Checkbox from '../Checkbox/Checkbox';
+import Avatar from '../Avatar';
+import Checkbox from '../Checkbox';
 import Table from '../Table/Table';
 import TableBody from '../Table/TableBody';
 import TableCell from '../Table/TableCell';
