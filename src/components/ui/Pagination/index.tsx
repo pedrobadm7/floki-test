@@ -20,19 +20,19 @@ const Pagination = ({
   return (
     <div className="flex items-center justify-center space-x-2 mt-4">
       <button
-        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
+        className="px-4 py-2 bg-secondary text-text rounded-md"
         disabled={currentPage === 1}
         onClick={handlePrevious}
       >
         Previous
       </button>
 
-      <span className="text-gray-700">
+      <span className="text-text">
         Page {currentPage} of {totalPages}
       </span>
 
       <button
-        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
+        className="px-4 py-2 bg-secondary text-text rounded-md"
         disabled={currentPage === totalPages}
         onClick={handleNext}
       >

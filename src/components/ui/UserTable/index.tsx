@@ -12,10 +12,14 @@ import TableHeader from '../Table/TableHeader';
 import TableRow from '../Table/TableRow';
 
 const ITEMS_PER_PAGE = 10;
+const TOTAL_ITEMS = 100;
 
 const UserTable = () => {
-  const { data, isLoading, isError } = useFetchUsers();
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading, isError } = useFetchUsers(
+    currentPage,
+    ITEMS_PER_PAGE,
+  );
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
   if (isError)
@@ -23,10 +27,7 @@ const UserTable = () => {
 
   if (!data) return null;
 
-  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedData = data.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
     <div className="w-full overflow-auto">
@@ -42,7 +43,7 @@ const UserTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedData.map((user, index) => (
+          {data.map((user, index) => (
             <TableRow
               key={user.login.username}
               className={index % 2 === 0 ? 'bg-secondary' : ''}
