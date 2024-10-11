@@ -17,6 +17,8 @@ const UserTable = () => {
 
   if (!data) return null;
 
+  console.log({ data });
+
   return (
     <div className="w-full overflow-auto">
       <Table>
@@ -33,13 +35,13 @@ const UserTable = () => {
         <TableBody>
           {data.map((user, index) => (
             <TableRow
-              key={user.id.value}
+              key={user.login.username}
               className={index % 2 === 0 ? 'bg-gray-50' : ''}
             >
               <TableCell>
-                <Checkbox id={`select-${user.id.value}`} />
+                <Checkbox id={`select-${user.login.salt}`} />
               </TableCell>
-              <TableCell className="font-medium">{user.id.value}</TableCell>
+              <TableCell className="font-medium">{user.login.salt}</TableCell>
               <TableCell>
                 <div className="flex items-center">
                   <Avatar
