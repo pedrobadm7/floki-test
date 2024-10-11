@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -14,10 +14,31 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const [rangeStart, setRangeStart] = useState(1);
+
+  useEffect(() => {
+    const half = Math.floor(MAX_VISIBLE_PAGES / 2);
+    let newRangeStart = rangeStart;
+
+    if (currentPage === rangeStart + MAX_VISIBLE_PAGES - 1) {
+      newRangeStart = Math.min(
+        currentPage + 1 - half,
+        totalPages - MAX_VISIBLE_PAGES + 1,
+      );
+    } else if (currentPage >= rangeStart + MAX_VISIBLE_PAGES) {
+      newRangeStart = Math.min(
+        currentPage - half,
+        totalPages - MAX_VISIBLE_PAGES + 1,
+      );
+    } else if (currentPage < rangeStart) {
+      newRangeStart = Math.max(currentPage - half, 1);
+    }
+
+    setRangeStart(newRangeStart);
+  }, [currentPage, rangeStart, totalPages]);
 
   const handlePrevious = () => {
-    if (currentPage > FIRST_PAGE) onPageChange(currentPage - 1);
+    if (currentPage > 1) onPageChange(currentPage - 1);
   };
 
   const handleNext = () => {
@@ -26,36 +47,20 @@ const Pagination = ({
 
   const handleFirstPage = () => {
     onPageChange(1);
+    setRangeStart(1);
   };
 
   const handleLastPage = () => {
     onPageChange(totalPages);
-  };
-
-  const handleExpand = () => {
-    setExpanded(true);
+    setRangeStart(totalPages - MAX_VISIBLE_PAGES + 1);
   };
 
   const getVisiblePages = () => {
     const pages = [];
+    const rangeEnd = Math.min(rangeStart + MAX_VISIBLE_PAGES - 1, totalPages);
 
-    if (expanded) {
-      // Expande e exibe todas as páginas
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      const half = Math.floor(MAX_VISIBLE_PAGES / 2);
-      let start = Math.max(currentPage - half, 1);
-      const end = Math.min(start + MAX_VISIBLE_PAGES - 1, totalPages);
-
-      if (end - start < MAX_VISIBLE_PAGES - 1) {
-        start = Math.max(end - MAX_VISIBLE_PAGES + 1, 1);
-      }
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
+    for (let i = rangeStart; i <= rangeEnd; i++) {
+      pages.push(i);
     }
 
     return pages;
@@ -93,16 +98,9 @@ const Pagination = ({
         </button>
       ))}
 
-      {!expanded &&
-        totalPages > MAX_VISIBLE_PAGES &&
-        visiblePages[visiblePages.length - 1] < totalPages && (
-          <button
-            className="px-3 py-1 rounded-md border border-gray-300"
-            onClick={handleExpand}
-          >
-            ...
-          </button>
-        )}
+      {rangeStart + MAX_VISIBLE_PAGES - 1 < totalPages && (
+        <span className="px-3 py-1">...</span>
+      )}
 
       <button
         className="px-3 py-1 rounded-md border border-gray-300"
