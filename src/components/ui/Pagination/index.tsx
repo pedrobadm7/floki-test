@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -12,6 +14,8 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
+  const [expanded, setExpanded] = useState(false);
+
   const handlePrevious = () => {
     if (currentPage > FIRST_PAGE) onPageChange(currentPage - 1);
   };
@@ -28,18 +32,30 @@ const Pagination = ({
     onPageChange(totalPages);
   };
 
+  const handleExpand = () => {
+    setExpanded(true);
+  };
+
   const getVisiblePages = () => {
     const pages = [];
-    const half = Math.floor(MAX_VISIBLE_PAGES / 2);
-    let start = Math.max(currentPage - half, 1);
-    const end = Math.min(start + MAX_VISIBLE_PAGES - 1, totalPages);
 
-    if (end - start < MAX_VISIBLE_PAGES - 1) {
-      start = Math.max(end - MAX_VISIBLE_PAGES + 1, 1);
-    }
+    if (expanded) {
+      // Expande e exibe todas as páginas
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const half = Math.floor(MAX_VISIBLE_PAGES / 2);
+      let start = Math.max(currentPage - half, 1);
+      const end = Math.min(start + MAX_VISIBLE_PAGES - 1, totalPages);
 
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
+      if (end - start < MAX_VISIBLE_PAGES - 1) {
+        start = Math.max(end - MAX_VISIBLE_PAGES + 1, 1);
+      }
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
     }
 
     return pages;
@@ -68,7 +84,7 @@ const Pagination = ({
       {visiblePages.map(page => (
         <button
           key={page}
-          className={`px-3 py-1 rounded-md border border-border ${
+          className={`px-3 py-1 rounded-md border border-gray-300 ${
             currentPage === page ? 'bg-gray-200' : ''
           }`}
           onClick={() => onPageChange(page)}
@@ -77,18 +93,16 @@ const Pagination = ({
         </button>
       ))}
 
-      {visiblePages[visiblePages.length - 1] < totalPages && (
-        <span className="px-3 py-1">...</span>
-      )}
-
-      {visiblePages[visiblePages.length - 1] < totalPages && (
-        <button
-          className="px-3 py-1 rounded-md border border-gray-300"
-          onClick={() => onPageChange(totalPages)}
-        >
-          {totalPages}
-        </button>
-      )}
+      {!expanded &&
+        totalPages > MAX_VISIBLE_PAGES &&
+        visiblePages[visiblePages.length - 1] < totalPages && (
+          <button
+            className="px-3 py-1 rounded-md border border-gray-300"
+            onClick={handleExpand}
+          >
+            ...
+          </button>
+        )}
 
       <button
         className="px-3 py-1 rounded-md border border-gray-300"
