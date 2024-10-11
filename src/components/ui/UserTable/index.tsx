@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
 import Avatar from '../Avatar';
 import Checkbox from '../Checkbox';
+import Pagination from '../Pagination';
 import Table from '../Table/Table';
 import TableBody from '../Table/TableBody';
 import TableCell from '../Table/TableCell';
@@ -8,8 +11,15 @@ import TableHead from '../Table/TableHead';
 import TableHeader from '../Table/TableHeader';
 import TableRow from '../Table/TableRow';
 
+const ITEMS_PER_PAGE = 10;
+const TOTAL_ITEMS = 1160;
+
 const UserTable = () => {
-  const { data, isLoading, isError } = useFetchUsers();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading, isError } = useFetchUsers(
+    currentPage,
+    ITEMS_PER_PAGE,
+  );
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
   if (isError)
@@ -17,7 +27,7 @@ const UserTable = () => {
 
   if (!data) return null;
 
-  console.log({ data });
+  const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
     <div className="w-full overflow-auto">
@@ -36,7 +46,7 @@ const UserTable = () => {
           {data.map((user, index) => (
             <TableRow
               key={user.login.username}
-              className={index % 2 === 0 ? 'bg-gray-50' : ''}
+              className={index % 2 === 0 ? 'bg-secondary' : ''}
             >
               <TableCell>
                 <Checkbox id={`select-${user.login.salt}`} />
@@ -50,7 +60,7 @@ const UserTable = () => {
                     fallback={user.name.first}
                   />
                   <div className="ml-4">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-text">
                       {user.name.first}
                     </div>
                   </div>
@@ -63,6 +73,12 @@ const UserTable = () => {
           ))}
         </TableBody>
       </Table>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
