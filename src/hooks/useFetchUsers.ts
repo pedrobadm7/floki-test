@@ -11,7 +11,7 @@ export const useFetchUsers = (
   filters: { gender: string | null },
 ) => {
   const { data, isLoading, isError } = useQuery<User[]>({
-    queryKey: [QueryKey.USERS, page, searchQuery, filters],
+    queryKey: [QueryKey.USERS, page, itemsPerPage, searchQuery, filters],
     queryFn: () => fetchUsers(page, itemsPerPage, searchQuery, filters),
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 5, // 5 minutes

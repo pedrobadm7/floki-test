@@ -22,13 +22,14 @@ const TOTAL_ITEMS = 1600;
 const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
   const [filters, setFilters] = useState<{ gender: string | null }>({
     gender: null,
   });
 
   const { data, isLoading, isError } = useFetchUsers(
     currentPage,
-    ITEMS_PER_PAGE,
+    itemsPerPage,
     searchQuery,
     filters,
   );
@@ -51,7 +52,7 @@ const UserTable = () => {
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-2">
+    <div className="flex-1 flex flex-col justify-center items-center gap-2">
       <CardTitle className="self-start">Customers</CardTitle>
 
       <Card className="w-full px-card-padding pt-card-padding bg-background">
@@ -59,7 +60,7 @@ const UserTable = () => {
           <FilteredSearch onSearch={handleSearch} />
           <div className="h-80 border rounded-md overflow-x-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="border  border-secondary">
                 <TableRow>
                   <TableHead className="w-[50px]">Select</TableHead>
                   <TableHead>ID</TableHead>
@@ -70,10 +71,10 @@ const UserTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map((user, index) => (
+                {data.map(user => (
                   <TableRow
                     key={user.login.username}
-                    className={index % 2 === 0 ? 'bg-primary' : ''}
+                    className="border border-secodnary"
                   >
                     <TableCell>
                       <SelectBox
@@ -109,13 +110,12 @@ const UserTable = () => {
             </Table>
           </div>
 
-          <CardFooter className="flex justify-between">
-            <p className="text-text text-sm">
-              Page {currentPage} of {totalPages}
-            </p>
+          <CardFooter>
             <Pagination
+              itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               totalPages={totalPages}
+              setItemsPerPage={setItemsPerPage}
               onPageChange={setCurrentPage}
             />
           </CardFooter>
