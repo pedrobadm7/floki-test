@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
 import Avatar from '../Avatar';
 import Checkbox from '../Checkbox';
+import FilteredSearch from '../FilteredSearch';
 import Pagination from '../Pagination';
 import Table from '../Table/Table';
 import TableBody from '../Table/TableBody';
@@ -16,10 +17,26 @@ const TOTAL_ITEMS = 1160;
 
 const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState<{ gender: string | null }>({
+    gender: null,
+  });
+
   const { data, isLoading, isError } = useFetchUsers(
     currentPage,
     ITEMS_PER_PAGE,
+    searchQuery,
+    filters,
   );
+
+  const handleSearch = (
+    query: string,
+    appliedFilters: { gender: string | null },
+  ) => {
+    setSearchQuery(query);
+    setFilters(appliedFilters);
+    setCurrentPage(1);
+  };
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
   if (isError)
@@ -31,6 +48,7 @@ const UserTable = () => {
 
   return (
     <div className="w-full overflow-auto">
+      <FilteredSearch onSearch={handleSearch} />
       <Table>
         <TableHeader>
           <TableRow>
@@ -49,7 +67,12 @@ const UserTable = () => {
               className={index % 2 === 0 ? 'bg-secondary' : ''}
             >
               <TableCell>
-                <Checkbox id={`select-${user.login.salt}`} />
+                <Checkbox
+                  value={user.name.first}
+                  onChange={() => console.log('Checked')}
+                  checked={false}
+                  id={`select-${user.login.salt}`}
+                />
               </TableCell>
               <TableCell className="font-medium">{user.login.salt}</TableCell>
               <TableCell>
