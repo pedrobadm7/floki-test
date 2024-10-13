@@ -34,15 +34,14 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-4 p-4 bg-white rounded-lg shadow-sm">
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">Filter by:</label>
-        <div className="flex gap-4">
+    <div className="space-y-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+        <div className="flex gap-x-4">
           <div className="flex items-center space-x-2">
             <SelectBox
               id="male"
               name="gender"
-              value="male"
+              value="Male"
               checked={filters.gender === 'male'}
               onChange={() => handleGenderChange('male')}
             />
@@ -52,7 +51,7 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
             <SelectBox
               id="female"
               name="gender"
-              value="female"
+              value="Female"
               checked={filters.gender === 'female'}
               onChange={() => handleGenderChange('female')}
             />
@@ -62,13 +61,10 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
             <SelectBox
               id="all"
               name="gender"
-              value=""
+              value="All"
               checked={filters.gender === null}
               onChange={() => handleGenderChange(null)}
             />
-            <label htmlFor="all" className="text-sm font-medium">
-              All
-            </label>
           </div>
         </div>
       </div>
@@ -77,7 +73,7 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
         <input
           type="search"
           placeholder="Search..."
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent"
+          className="w-full pl-10 pr-4 py-2 border border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent"
           value={searchQuery}
           onChange={handleInputChange}
         />
