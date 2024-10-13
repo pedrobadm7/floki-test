@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-import { useFetchUsers } from '../../../hooks/useFetchUsers';
-import { useUserActions } from '../../../hooks/useUserActions';
-import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
-import { cn } from '../../../utils/cn';
-import Avatar from '../Avatar';
-import { Card, CardContent, CardFooter, CardTitle } from '../Card';
-import Checkbox from '../CheckBox';
-import FilteredSearch from '../FilteredSearch';
-import Pagination from '../Pagination';
+import Avatar from '../../components/ui/Avatar';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardTitle,
+} from '../../components/ui/Card';
+import Checkbox from '../../components/ui/CheckBox';
+import FilteredSearch from '../../components/ui/FilteredSearch';
+import Pagination from '../../components/ui/Pagination';
 import {
   Table,
   TableBody,
@@ -16,7 +17,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../Table';
+} from '../../components/ui/Table';
+import { useFetchUsers } from '../../hooks/useFetchUsers';
+import { useUserActions } from '../../hooks/useUserActions';
+import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { cn } from '../../utils/cn';
 
 const ITEMS_PER_PAGE = 100;
 const TOTAL_ITEMS = 1600;
@@ -138,7 +143,7 @@ const UserTable = () => {
             </Table>
           </div>
 
-          <CardFooter className="flex flex-col items-start">
+          <CardFooter className="flex flex-col md:items-start items-end">
             <Pagination
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
@@ -148,7 +153,7 @@ const UserTable = () => {
             />
             <button
               className={cn(
-                'mt-4 px-4 py-2 bg-red-500 text-white rounded-md',
+                ' mt-4 px-4 py-2 bg-red-500 text-white rounded-md',
                 !selectedUsers.length && 'bg-red-300',
               )}
               onClick={handleRemoveSelectedUsers}
