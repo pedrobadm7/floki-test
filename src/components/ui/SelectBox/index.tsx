@@ -1,15 +1,17 @@
-const SelectBox = ({
-  id,
-  checked,
-  name,
-  value,
-  onChange,
-}: {
+interface SelectBoxProps {
   id: string;
   checked: boolean;
   name?: string;
   value: string;
   onChange: () => void;
+}
+
+const SelectBox: React.FC<SelectBoxProps> = ({
+  id,
+  checked,
+  name,
+  value,
+  onChange,
 }) => (
   <>
     {name && (

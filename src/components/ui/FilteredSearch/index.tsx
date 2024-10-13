@@ -8,7 +8,7 @@ interface FilteredSearchProps {
   onSearch: (query: string, filters: { gender: string | null }) => void;
 }
 
-const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
+const FilteredSearch: React.FC<FilteredSearchProps> = ({ onSearch }) => {
   const [filters, setFilters] = useState<{ gender: string | null }>({
     gender: null,
   });
