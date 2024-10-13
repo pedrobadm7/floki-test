@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
+import useUserStore from '../../../store';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
+import { cn } from '../../../utils/cn';
 import Avatar from '../Avatar';
 import { Card, CardContent, CardFooter, CardTitle } from '../Card';
 import Checkbox from '../CheckBox';
@@ -23,19 +25,23 @@ const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [filters, setFilters] = useState<{ gender: string | null }>({
     gender: null,
   });
 
-  console.log({ selectedUsers });
+  const selectedUsers = useUserStore(state => state.selectedUsers);
+  const removedUsers = useUserStore(state => state.removedUsers);
+  const selectUser = useUserStore(state => state.selectUser);
+  const deselectUser = useUserStore(state => state.deselectUser);
+  const removeSelectedUsers = useUserStore(state => state.removeSelectedUsers);
 
-  const { data, isLoading, isError } = useFetchUsers(
-    currentPage,
-    itemsPerPage,
-    searchQuery,
-    filters,
-  );
+  console.log({ selectedUsers, removedUsers });
+
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useFetchUsers(currentPage, itemsPerPage, searchQuery, filters);
 
   const handleSearch = (
     query: string,
@@ -46,20 +52,28 @@ const UserTable = () => {
   };
 
   const handleCheckedChange = (id: string, checked: boolean) => {
-    setSelectedUsers(prevSelected => {
-      if (checked) {
-        return [...prevSelected, id];
-      } else {
-        return prevSelected.filter(userId => userId !== id);
-      }
-    });
+    if (checked) {
+      selectUser(id);
+    } else {
+      deselectUser(id);
+    }
+  };
+
+  const handleRemoveSelectedUsers = () => {
+    if (selectedUsers.length > 0) {
+      removeSelectedUsers();
+    }
   };
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
   if (isError)
     return <p className="text-center text-red-500">Error fetching users.</p>;
 
-  if (!data) return null;
+  if (!users) return null;
+
+  const visibleUsers = users.filter(
+    user => !removedUsers.includes(user.login.uuid),
+  );
 
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
@@ -70,7 +84,7 @@ const UserTable = () => {
       <Card className="w-full px-card-padding pt-card-padding bg-background">
         <CardContent className="flex flex-col gap-4">
           <FilteredSearch onSearch={handleSearch} />
-          <div className="h-80 border rounded-md overflow-x-auto">
+          <div className="h-96 border rounded-md overflow-x-auto">
             <Table>
               <TableHeader className="border  border-secondary">
                 <TableRow>
@@ -83,22 +97,22 @@ const UserTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map(user => (
+                {visibleUsers.map(user => (
                   <TableRow
                     key={user.login.username}
                     className="border border-secodnary"
                   >
                     <TableCell>
                       <Checkbox
-                        id={user.login.salt}
-                        checked={selectedUsers.includes(user.login.salt)}
+                        id={user.login.uuid}
+                        checked={selectedUsers.includes(user.login.uuid)}
                         onCheckedChange={checked =>
-                          handleCheckedChange(user.login.salt, checked)
+                          handleCheckedChange(user.login.uuid, checked)
                         }
                       />
                     </TableCell>
                     <TableCell className="font-medium">
-                      {user.login.salt}
+                      ID{user.login.salt.toUpperCase()}
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center">
@@ -123,7 +137,7 @@ const UserTable = () => {
             </Table>
           </div>
 
-          <CardFooter>
+          <CardFooter className="flex flex-col items-start">
             <Pagination
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
@@ -131,6 +145,16 @@ const UserTable = () => {
               setItemsPerPage={setItemsPerPage}
               onPageChange={setCurrentPage}
             />
+            <button
+              className={cn(
+                'mt-4 px-4 py-2 bg-red-500 text-white rounded-md',
+                !selectedUsers.length && 'bg-red-300',
+              )}
+              onClick={handleRemoveSelectedUsers}
+              disabled={!selectedUsers.length}
+            >
+              Remove Selected Users
+            </button>
           </CardFooter>
         </CardContent>
       </Card>
