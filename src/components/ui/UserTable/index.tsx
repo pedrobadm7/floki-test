@@ -1,17 +1,20 @@
 import { useState } from 'react';
 
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
+import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import Avatar from '../Avatar';
-import { Card, CardContent } from '../Card';
+import { Card, CardContent, CardFooter, CardTitle } from '../Card';
 import FilteredSearch from '../FilteredSearch';
 import Pagination from '../Pagination';
 import SelectBox from '../SelectBox';
-import Table from '../Table/Table';
-import TableBody from '../Table/TableBody';
-import TableCell from '../Table/TableCell';
-import TableHead from '../Table/TableHead';
-import TableHeader from '../Table/TableHeader';
-import TableRow from '../Table/TableRow';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '../Table';
 
 const ITEMS_PER_PAGE = 100;
 const TOTAL_ITEMS = 1600;
@@ -48,7 +51,9 @@ const UserTable = () => {
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-2">
+      <CardTitle className="self-start">Customers</CardTitle>
+
       <Card className="w-full px-card-padding pt-card-padding bg-background">
         <CardContent className="flex flex-col gap-4">
           <FilteredSearch onSearch={handleSearch} />
@@ -97,17 +102,23 @@ const UserTable = () => {
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.location.country}</TableCell>
-                    <TableCell>{user.gender}</TableCell>
+                    <TableCell>{capitalizeFirstLetter(user.gender)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+
+          <CardFooter className="flex justify-between">
+            <p className="text-text text-sm">
+              Page {currentPage} of {totalPages}
+            </p>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </CardFooter>
         </CardContent>
       </Card>
     </div>

@@ -69,7 +69,7 @@ const Pagination = ({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex items-center justify-center space-x-2 mt-4">
+    <div className="flex items-center justify-center space-x-2 ">
       <button
         className="px-3 py-1 bg-secondary text-text rounded-md border border-secondary"
         disabled={currentPage === FIRST_PAGE}
