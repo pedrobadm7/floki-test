@@ -12,8 +12,8 @@ import TableHead from '../Table/TableHead';
 import TableHeader from '../Table/TableHeader';
 import TableRow from '../Table/TableRow';
 
-const ITEMS_PER_PAGE = 10;
-const TOTAL_ITEMS = 1160;
+const ITEMS_PER_PAGE = 100;
+const TOTAL_ITEMS = 1600;
 
 const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);

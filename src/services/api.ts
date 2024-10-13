@@ -11,18 +11,19 @@ export const fetchUsers = async (
   const params = new URLSearchParams({
     page: page.toString(),
     results: itemsPerPage.toString(),
+    seed: 'custom_seed',
   });
-
-  if (filters.gender) {
-    params.append('gender', filters.gender);
-  }
 
   const { data } = await http.get(`/?${params.toString()}`);
 
-  const { results } = data;
+  let { results } = data;
+
+  if (filters.gender) {
+    results = results.filter((user: User) => user.gender === filters.gender);
+  }
 
   if (searchQuery) {
-    return results.filter((user: User) =>
+    results = results.filter((user: User) =>
       `${user.name.first} ${user.name.last}`
         .toLowerCase()
         .includes(searchQuery.toLowerCase()),
