@@ -6,7 +6,7 @@ const TableHead = ({
   className?: string;
 }) => (
   <th
-    className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${className}`}
+    className={`px-6 py-3 text-left text-xs font-medium text-text uppercase tracking-wider ${className}`}
   >
     {children}
   </th>

@@ -12,6 +12,11 @@ const SelectBox = ({
   onChange: () => void;
 }) => (
   <>
+    {name && (
+      <label htmlFor={name} className="text-sm text-text_body font-medium">
+        {value}
+      </label>
+    )}
     <input
       type="radio"
       name={name}
@@ -21,11 +26,6 @@ const SelectBox = ({
       className="form-checkbox h-5 w-5 text-blue-600"
       onChange={onChange}
     />
-    {name && (
-      <label htmlFor={name} className="text-sm font-medium">
-        {value}
-      </label>
-    )}
   </>
 );
 

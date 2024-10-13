@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
 import Avatar from '../Avatar';
+import { Card, CardContent } from '../Card';
 import FilteredSearch from '../FilteredSearch';
 import Pagination from '../Pagination';
 import SelectBox from '../SelectBox';
@@ -47,61 +48,68 @@ const UserTable = () => {
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
-    <div className="w-full overflow-auto">
-      <FilteredSearch onSearch={handleSearch} />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[50px]">Select</TableHead>
-            <TableHead>ID</TableHead>
-            <TableHead>User</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Country</TableHead>
-            <TableHead>Gender</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((user, index) => (
-            <TableRow
-              key={user.login.username}
-              className={index % 2 === 0 ? 'bg-secondary' : ''}
-            >
-              <TableCell>
-                <SelectBox
-                  value={user.name.first}
-                  onChange={() => console.log('Checked')}
-                  checked={false}
-                  id={`select-${user.login.salt}`}
-                />
-              </TableCell>
-              <TableCell className="font-medium">{user.login.salt}</TableCell>
-              <TableCell>
-                <div className="flex items-center">
-                  <Avatar
-                    src={user.picture.thumbnail}
-                    alt={user.name.first}
-                    fallback={user.name.first}
-                  />
-                  <div className="ml-4">
-                    <div className="text-sm font-medium text-text">
-                      {user.name.first}
-                    </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.location.country}</TableCell>
-              <TableCell>{user.gender}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <Card className="w-full px-card-padding pt-card-padding bg-background">
+        <CardContent className="flex flex-col gap-4">
+          <FilteredSearch onSearch={handleSearch} />
+          <div className="h-80 border rounded-md overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[50px]">Select</TableHead>
+                  <TableHead>ID</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Country</TableHead>
+                  <TableHead>Gender</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((user, index) => (
+                  <TableRow
+                    key={user.login.username}
+                    className={index % 2 === 0 ? 'bg-primary' : ''}
+                  >
+                    <TableCell>
+                      <SelectBox
+                        value={user.name.first}
+                        onChange={() => console.log('Checked')}
+                        checked={false}
+                        id={`select-${user.login.salt}`}
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {user.login.salt}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <Avatar
+                          src={user.picture.thumbnail}
+                          alt={user.name.first}
+                          fallback={user.name.first}
+                        />
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-text">
+                            {user.name.first}
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.location.country}</TableCell>
+                    <TableCell>{user.gender}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 };
