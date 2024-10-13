@@ -40,7 +40,6 @@ const UserTable = () => {
   ) => {
     setSearchQuery(query);
     setFilters(appliedFilters);
-    setCurrentPage(1);
   };
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
