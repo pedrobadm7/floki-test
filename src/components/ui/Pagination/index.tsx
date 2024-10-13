@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { useMediaQuery } from '../../../hooks/useMediaQuery';
+import { BREAKPOINTS } from '../../../utils/breakpoints';
+import { cn } from '../../../utils/cn';
 import PaginationDropdown from '../PaginationDropdown';
 
 interface PaginationProps {
@@ -13,14 +16,16 @@ interface PaginationProps {
 const MAX_VISIBLE_PAGES = 5;
 const FIRST_PAGE = 1;
 
-const Pagination = ({
+const Pagination: React.FC<PaginationProps> = ({
   itemsPerPage,
   currentPage,
   totalPages,
   onPageChange,
   setItemsPerPage,
-}: PaginationProps) => {
+}) => {
   const [rangeStart, setRangeStart] = useState(1);
+
+  const isTabletOrGreater = useMediaQuery(BREAKPOINTS.sm);
 
   useEffect(() => {
     const half = Math.floor(MAX_VISIBLE_PAGES / 2);
@@ -96,17 +101,26 @@ const Pagination = ({
           &lsaquo;
         </button>
 
-        {visiblePages.map(page => (
-          <button
-            key={page}
-            className={`px-3 py-1 rounded-md border border-gray-300 ${
-              currentPage === page ? 'bg-secondary' : ''
-            }`}
-            onClick={() => onPageChange(page)}
-          >
-            {page}
-          </button>
-        ))}
+        {isTabletOrGreater ? (
+          <>
+            {visiblePages.map(page => (
+              <button
+                key={page}
+                className={cn(
+                  'px-3 py-1 rounded-md border border-gray-300',
+                  currentPage === page ? 'bg-secondary' : '',
+                )}
+                onClick={() => onPageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
+          </>
+        ) : (
+          <span className="text-sm px-3 py-1 rounded-md border border-gray-300">
+            {currentPage}
+          </span>
+        )}
 
         {rangeStart + MAX_VISIBLE_PAGES - 1 < totalPages && (
           <span className="px-3 py-1">...</span>
