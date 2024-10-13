@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
-import useUserStore from '../../../store';
+import { useUserActions } from '../../../hooks/useUserActions';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { cn } from '../../../utils/cn';
 import Avatar from '../Avatar';
@@ -29,13 +29,13 @@ const UserTable = () => {
     gender: null,
   });
 
-  const selectedUsers = useUserStore(state => state.selectedUsers);
-  const removedUsers = useUserStore(state => state.removedUsers);
-  const selectUser = useUserStore(state => state.selectUser);
-  const deselectUser = useUserStore(state => state.deselectUser);
-  const removeSelectedUsers = useUserStore(state => state.removeSelectedUsers);
-
-  console.log({ selectedUsers, removedUsers });
+  const {
+    selectedUsers,
+    removedUsers,
+    selectUser,
+    deselectUser,
+    removeSelectedUsers,
+  } = useUserActions();
 
   const {
     data: users,
