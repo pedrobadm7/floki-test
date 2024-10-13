@@ -4,9 +4,9 @@ import { useFetchUsers } from '../../../hooks/useFetchUsers';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import Avatar from '../Avatar';
 import { Card, CardContent, CardFooter, CardTitle } from '../Card';
+import Checkbox from '../CheckBox';
 import FilteredSearch from '../FilteredSearch';
 import Pagination from '../Pagination';
-import SelectBox from '../SelectBox';
 import {
   Table,
   TableBody,
@@ -23,9 +23,12 @@ const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [filters, setFilters] = useState<{ gender: string | null }>({
     gender: null,
   });
+
+  console.log({ selectedUsers });
 
   const { data, isLoading, isError } = useFetchUsers(
     currentPage,
@@ -40,6 +43,16 @@ const UserTable = () => {
   ) => {
     setSearchQuery(query);
     setFilters(appliedFilters);
+  };
+
+  const handleCheckedChange = (id: string, checked: boolean) => {
+    setSelectedUsers(prevSelected => {
+      if (checked) {
+        return [...prevSelected, id];
+      } else {
+        return prevSelected.filter(userId => userId !== id);
+      }
+    });
   };
 
   if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
@@ -76,11 +89,12 @@ const UserTable = () => {
                     className="border border-secodnary"
                   >
                     <TableCell>
-                      <SelectBox
-                        value={user.name.first}
-                        onChange={() => console.log('Checked')}
-                        checked={false}
-                        id={`select-${user.login.salt}`}
+                      <Checkbox
+                        id={user.login.salt}
+                        checked={selectedUsers.includes(user.login.salt)}
+                        onCheckedChange={checked =>
+                          handleCheckedChange(user.login.salt, checked)
+                        }
                       />
                     </TableCell>
                     <TableCell className="font-medium">
