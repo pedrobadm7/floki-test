@@ -1,4 +1,4 @@
-const Checkbox = ({
+const SelectBox = ({
   id,
   checked,
   name,
@@ -29,4 +29,4 @@ const Checkbox = ({
   </>
 );
 
-export default Checkbox;
+export default SelectBox;

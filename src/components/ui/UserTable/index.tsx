@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useFetchUsers } from '../../../hooks/useFetchUsers';
 import Avatar from '../Avatar';
-import Checkbox from '../Checkbox';
 import FilteredSearch from '../FilteredSearch';
 import Pagination from '../Pagination';
+import SelectBox from '../SelectBox';
 import Table from '../Table/Table';
 import TableBody from '../Table/TableBody';
 import TableCell from '../Table/TableCell';
@@ -67,7 +67,7 @@ const UserTable = () => {
               className={index % 2 === 0 ? 'bg-secondary' : ''}
             >
               <TableCell>
-                <Checkbox
+                <SelectBox
                   value={user.name.first}
                   onChange={() => console.log('Checked')}
                   checked={false}

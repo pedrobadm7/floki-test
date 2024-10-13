@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 
 import debounce from '../../../utils/debounce';
-import Checkbox from '../Checkbox';
+import SelectBox from '../SelectBox';
 
 interface FilteredSearchProps {
   onSearch: (query: string, filters: { gender: string | null }) => void;
@@ -39,7 +39,7 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
         <label className="text-sm font-medium text-gray-700">Filter by:</label>
         <div className="flex gap-4">
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <SelectBox
               id="male"
               name="gender"
               value="male"
@@ -49,7 +49,7 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <SelectBox
               id="female"
               name="gender"
               value="female"
@@ -59,7 +59,7 @@ const FilteredSearch = ({ onSearch }: FilteredSearchProps) => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <SelectBox
               id="all"
               name="gender"
               value=""
