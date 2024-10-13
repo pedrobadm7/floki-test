@@ -4,7 +4,11 @@ interface CheckboxProps {
   onCheckedChange: (checked: boolean) => void;
 }
 
-const Checkbox = ({ id, checked, onCheckedChange }: CheckboxProps) => {
+const Checkbox: React.FC<CheckboxProps> = ({
+  id,
+  checked,
+  onCheckedChange,
+}) => {
   return (
     <div className="flex items-center">
       <input

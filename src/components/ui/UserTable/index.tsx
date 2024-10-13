@@ -20,9 +20,10 @@ import {
 
 const ITEMS_PER_PAGE = 100;
 const TOTAL_ITEMS = 1600;
+const INITIAL_PAGE = 1;
 
 const UserTable = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   const [searchQuery, setSearchQuery] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
   const [filters, setFilters] = useState<{ gender: string | null }>({
