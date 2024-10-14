@@ -14,6 +14,14 @@ export default defineConfig({
         functions: 90,
         lines: 90,
       },
+      exclude: [
+        'src/test/__mocks__/**',
+        'eslint.config.js',
+        'postcss.config.js',
+        'tailwind.config.js',
+        'vite.config.ts',
+        'vitest.config.ts',
+      ],
     },
   },
 });
