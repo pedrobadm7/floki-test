@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import UserTable from './components/ui/UserTable';
+import UserTable from './pages/UserTable';
 
 function App() {
   const queryClient = new QueryClient();
