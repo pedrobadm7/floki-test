@@ -166,6 +166,28 @@ describe('UserTable Component', () => {
     );
   });
 
+  it('should allow deselecting users', async () => {
+    const mockDeselectUser = vi.fn();
+
+    vi.mocked(useUserActions).mockReturnValue({
+      selectedUsers: ['60960bb4-677e-4c9c-98f9-e437c97d103e'],
+      removedUsers: [],
+      selectUser: vi.fn(),
+      deselectUser: mockDeselectUser,
+      removeSelectedUsers: vi.fn(),
+    });
+
+    render(<UserTable />);
+
+    const checkbox = await screen.getByRole('checkbox');
+    fireEvent.click(checkbox);
+    fireEvent.click(checkbox);
+
+    expect(mockDeselectUser).toHaveBeenCalledWith(
+      '60960bb4-677e-4c9c-98f9-e437c97d103e',
+    );
+  });
+
   it('should allow removing  selected users', async () => {
     const mockRemoveSelectedUsers = vi.fn();
 
