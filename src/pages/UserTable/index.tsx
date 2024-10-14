@@ -85,7 +85,9 @@ const UserTable = () => {
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center gap-2">
-      <CardTitle className="self-start">Customers</CardTitle>
+      <CardTitle className="self-start" data-testid="user-table-title">
+        Customers
+      </CardTitle>
 
       <Card className="w-full px-card-padding pt-card-padding bg-background">
         <CardContent className="flex flex-col gap-4">
