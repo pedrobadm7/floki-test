@@ -43,6 +43,8 @@ const UserTable = () => {
     removeSelectedUsers,
   } = useUserActions();
 
+  console.log({ selectedUsers, removedUsers });
+
   const {
     data: users,
     isLoading,
