@@ -212,4 +212,25 @@ describe('UserTable Component', () => {
 
     expect(mockRemoveSelectedUsers).toHaveBeenCalled();
   });
+
+  it('should allow searching users by query and applying gender filter', async () => {
+    render(<UserTable />);
+
+    const searchInput = screen.getByPlaceholderText('Search...');
+    const genderFilter = screen.getByRole('checkbox');
+
+    fireEvent.change(searchInput, { target: { value: 'Fabiola' } });
+
+    fireEvent.click(genderFilter);
+
+    expect(searchInput).toHaveValue('Fabiola');
+
+    expect(genderFilter).toBeChecked();
+
+    const user1 = await screen.findByText('Fabiola');
+    expect(user1).toBeInTheDocument();
+
+    const user2 = screen.queryByText('User Two');
+    expect(user2).not.toBeInTheDocument();
+  });
 });
