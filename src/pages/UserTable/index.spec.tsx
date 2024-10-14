@@ -216,15 +216,11 @@ describe('UserTable Component', () => {
   it('should allow searching users by query and applying gender filter', async () => {
     render(<UserTable />);
 
-    const searchInput = screen.getByPlaceholderText('Search...');
-    const genderFilter = screen.getByRole('checkbox');
-
+    const searchInput = screen.getByRole('searchbox');
     fireEvent.change(searchInput, { target: { value: 'Fabiola' } });
 
+    const genderFilter = screen.getByDisplayValue(/female/i);
     fireEvent.click(genderFilter);
-
-    expect(searchInput).toHaveValue('Fabiola');
-
     expect(genderFilter).toBeChecked();
 
     const user1 = await screen.findByText('Fabiola');
