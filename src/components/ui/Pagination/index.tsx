@@ -95,6 +95,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className="px-3 py-1 bg-background text-text rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           disabled={currentPage === FIRST_PAGE}
           onClick={handleFirstPage}
+          data-testid="chevrons-left"
         >
           <ChevronsLeft size={16} />
         </button>
@@ -103,6 +104,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className="px-3 py-1 rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handlePrevious}
           disabled={currentPage === FIRST_PAGE}
+          data-testid="chevron-left-icon"
         >
           <ChevronLeftIcon size={16} />
         </button>
@@ -136,6 +138,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className="px-3 py-1 rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handleNext}
           disabled={currentPage === totalPages}
+          data-testid="chevron-right-icon"
         >
           <ChevronRightIcon size={16} />
         </button>
@@ -144,6 +147,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className="px-3 py-1 bg-background text-text rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handleLastPage}
           disabled={currentPage === totalPages}
+          data-testid="chevrons-right"
         >
           <ChevronsRight size={14} />
         </button>
