@@ -73,16 +73,13 @@ const UserTable = () => {
     }
   };
 
-  if (!users) return null;
-
-  const visibleUsers = users.filter(
-    user => !removedUsers.includes(user.login.uuid),
-  );
+  const visibleUsers =
+    users && users.filter(user => !removedUsers.includes(user.login.uuid));
 
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
-    <Wrapper loading={isLoading} error={isError} onRetry={refetch}>
+    <Wrapper loading={isLoading} error={!users || isError} onRetry={refetch}>
       <div className="flex-1 flex flex-col justify-center items-center gap-2">
         <CardTitle className="self-start" data-testid="user-table-title">
           Customers
@@ -104,7 +101,7 @@ const UserTable = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {visibleUsers.map(user => (
+                  {visibleUsers?.map(user => (
                     <TableRow
                       key={user.login.username}
                       className="border border-secodnary"
