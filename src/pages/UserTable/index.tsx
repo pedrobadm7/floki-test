@@ -9,7 +9,6 @@ import {
 } from '../../components/ui/Card';
 import Checkbox from '../../components/ui/CheckBox';
 import FilteredSearch from '../../components/ui/FilteredSearch';
-import Loading from '../../components/ui/Loading';
 import Pagination from '../../components/ui/Pagination';
 import {
   Table,
@@ -19,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/Table';
+import Wrapper from '../../components/ui/Wrapper';
 import { useFetchUsers } from '../../hooks/useFetchUsers';
 import { useUserActions } from '../../hooks/useUserActions';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
@@ -48,6 +48,7 @@ const UserTable = () => {
     data: users,
     isLoading,
     isError,
+    refetch,
   } = useFetchUsers(currentPage, itemsPerPage, searchQuery, filters);
 
   const handleSearch = (
@@ -72,107 +73,99 @@ const UserTable = () => {
     }
   };
 
-  if (isLoading)
-    return (
-      <div className="flex flex-1 justify-center items-center ">
-        <Loading />
-      </div>
-    );
-  if (isError)
-    return <p className="text-center text-red-500">Error fetching users.</p>;
-
-  if (!users) return null;
-
-  const visibleUsers = users.filter(
-    user => !removedUsers.includes(user.login.uuid),
-  );
+  const visibleUsers =
+    users && users.filter(user => !removedUsers.includes(user.login.uuid));
 
   const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-center gap-2">
-      <CardTitle className="self-start" data-testid="user-table-title">
-        Customers
-      </CardTitle>
+    <Wrapper loading={isLoading} error={!users || isError} onRetry={refetch}>
+      <div className="flex-1 flex flex-col justify-center items-center gap-2">
+        <CardTitle className="self-start" data-testid="user-table-title">
+          Customers
+        </CardTitle>
 
-      <Card className="w-full px-card-padding pt-card-padding bg-background">
-        <CardContent className="flex flex-col gap-4">
-          <FilteredSearch onSearch={handleSearch} />
-          <div className="h-96 border rounded-md overflow-x-auto">
-            <Table>
-              <TableHeader className="border  border-secondary">
-                <TableRow>
-                  <TableHead className="w-[50px]">Select</TableHead>
-                  <TableHead>ID</TableHead>
-                  <TableHead>User</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Country</TableHead>
-                  <TableHead>Gender</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {visibleUsers.map(user => (
-                  <TableRow
-                    key={user.login.username}
-                    className="border border-secodnary"
-                  >
-                    <TableCell>
-                      <Checkbox
-                        id={user.login.uuid}
-                        checked={selectedUsers.includes(user.login.uuid)}
-                        onCheckedChange={checked =>
-                          handleCheckedChange(user.login.uuid, checked)
-                        }
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      ID{user.login.salt.toUpperCase()}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center">
-                        <Avatar
-                          src={user.picture.thumbnail}
-                          alt={user.name.first}
-                          fallback={user.name.first}
+        <Card className="w-full px-card-padding pt-card-padding bg-background">
+          <CardContent className="flex flex-col gap-4">
+            <FilteredSearch onSearch={handleSearch} />
+            <div className="h-96 border rounded-md overflow-x-auto">
+              <Table>
+                <TableHeader className="border  border-secondary">
+                  <TableRow>
+                    <TableHead className="w-[50px]">Select</TableHead>
+                    <TableHead>ID</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Country</TableHead>
+                    <TableHead>Gender</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {visibleUsers?.map(user => (
+                    <TableRow
+                      key={user.login.username}
+                      className="border border-secodnary"
+                    >
+                      <TableCell>
+                        <Checkbox
+                          id={user.login.uuid}
+                          checked={selectedUsers.includes(user.login.uuid)}
+                          onCheckedChange={checked =>
+                            handleCheckedChange(user.login.uuid, checked)
+                          }
                         />
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-text">
-                            {user.name.first}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        ID{user.login.salt.toUpperCase()}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center">
+                          <Avatar
+                            src={user.picture.thumbnail}
+                            alt={user.name.first}
+                            fallback={user.name.first}
+                          />
+                          <div className="ml-4">
+                            <div className="text-sm font-medium text-text">
+                              {user.name.first}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.location.country}</TableCell>
-                    <TableCell>{capitalizeFirstLetter(user.gender)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                      </TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.location.country}</TableCell>
+                      <TableCell>
+                        {capitalizeFirstLetter(user.gender)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
 
-          <CardFooter className="flex flex-col md:items-start items-end">
-            <Pagination
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              setItemsPerPage={setItemsPerPage}
-              onPageChange={setCurrentPage}
-            />
-            <button
-              className={cn(
-                ' mt-4 px-4 py-2 bg-red-500 text-white rounded-md',
-                !selectedUsers.length && 'bg-red-300',
-              )}
-              onClick={handleRemoveSelectedUsers}
-              disabled={!selectedUsers.length}
-            >
-              Remove Selected Users
-            </button>
-          </CardFooter>
-        </CardContent>
-      </Card>
-    </div>
+            <CardFooter className="flex flex-col md:items-start items-end">
+              <Pagination
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setItemsPerPage={setItemsPerPage}
+                onPageChange={setCurrentPage}
+              />
+              <button
+                className={cn(
+                  ' mt-4 px-4 py-2 bg-red-500 text-white rounded-md',
+                  !selectedUsers.length && 'bg-red-300',
+                )}
+                onClick={handleRemoveSelectedUsers}
+                disabled={!selectedUsers.length}
+              >
+                Remove Selected Users
+              </button>
+            </CardFooter>
+          </CardContent>
+        </Card>
+      </div>
+    </Wrapper>
   );
 };
 
