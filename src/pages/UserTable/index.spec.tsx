@@ -120,11 +120,12 @@ describe('UserTable Component', () => {
       ],
       isLoading: true,
       isError: false,
+      refetch: vi.fn(),
     });
 
     render(<UserTable />);
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.getByTestId('loading-component')).toBeInTheDocument();
   });
 
   it('should show error message when fetching fails', () => {
@@ -132,11 +133,12 @@ describe('UserTable Component', () => {
       data: [],
       isLoading: false,
       isError: true,
+      refetch: vi.fn(),
     });
 
     render(<UserTable />);
 
-    expect(screen.getByText('Error fetching users.')).toBeInTheDocument();
+    expect(screen.getByTestId('error-component')).toBeInTheDocument();
   });
 
   it('should allow selecting users', async () => {
@@ -146,6 +148,7 @@ describe('UserTable Component', () => {
       data: [userMock],
       isLoading: false,
       isError: false,
+      refetch: vi.fn(),
     });
 
     vi.mocked(useUserActions).mockReturnValue({
@@ -195,6 +198,7 @@ describe('UserTable Component', () => {
       data: [userMock],
       isLoading: false,
       isError: false,
+      refetch: vi.fn(),
     });
 
     vi.mocked(useUserActions).mockReturnValue({

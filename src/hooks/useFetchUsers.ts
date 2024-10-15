@@ -10,12 +10,14 @@ export const useFetchUsers = (
   searchQuery: string,
   filters: { gender: string | null },
 ) => {
-  const { data, isLoading, isError } = useQuery<User[]>({
+  const { data, isLoading, isError, refetch } = useQuery<User[]>({
     queryKey: [QueryKey.USERS, page, itemsPerPage, searchQuery, filters],
     queryFn: () => fetchUsers(page, itemsPerPage, searchQuery, filters),
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: false,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 3000), // Backoff exponencial
   });
 
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, refetch };
 };
