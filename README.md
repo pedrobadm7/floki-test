@@ -64,12 +64,12 @@ The project handles edge cases like network connectivity (offline/online detecti
 1. Clone the repository:
    ```bash
    git clone https://github.com/pedrobadm7/floki-test.git
-   cd your-repo
+   cd floki-test
     ```
    or using SSH
     ```bash
    git clone git@github.com:pedrobadm7/floki-test.git
-   cd your-repo
+   cd floki-test
     ```
 
 2. Install dependencies:
