@@ -1,3 +1,9 @@
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
@@ -86,19 +92,19 @@ const Pagination: React.FC<PaginationProps> = ({
       </p>
       <div className="flex items-center justify-center space-x-2 ">
         <button
-          className="px-3 py-1 bg-secondary text-text rounded-md border border-secondary"
+          className="px-3 py-1 bg-background text-text rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           disabled={currentPage === FIRST_PAGE}
           onClick={handleFirstPage}
         >
-          &laquo;
+          <ChevronsLeft size={16} />
         </button>
 
         <button
-          className="px-3 py-1 rounded-md border border-border"
+          className="px-3 py-1 rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handlePrevious}
           disabled={currentPage === FIRST_PAGE}
         >
-          &lsaquo;
+          <ChevronLeftIcon size={16} />
         </button>
 
         {isTabletOrGreater ? (
@@ -107,7 +113,7 @@ const Pagination: React.FC<PaginationProps> = ({
               <button
                 key={page}
                 className={cn(
-                  'px-3 py-1 rounded-md border border-gray-300',
+                  'px-3 py-1 rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center',
                   currentPage === page ? 'bg-secondary' : '',
                 )}
                 onClick={() => onPageChange(page)}
@@ -117,7 +123,7 @@ const Pagination: React.FC<PaginationProps> = ({
             ))}
           </>
         ) : (
-          <span className="text-sm px-3 py-1 rounded-md border border-gray-300">
+          <span className="text-sm px-3 py-1 rounded-md border border-border">
             {currentPage}
           </span>
         )}
@@ -127,19 +133,19 @@ const Pagination: React.FC<PaginationProps> = ({
         )}
 
         <button
-          className="px-3 py-1 rounded-md border border-gray-300"
+          className="px-3 py-1 rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handleNext}
           disabled={currentPage === totalPages}
         >
-          &rsaquo;
+          <ChevronRightIcon size={16} />
         </button>
 
         <button
-          className="px-3 py-1 rounded-md border border-gray-300"
+          className="px-3 py-1 bg-background text-text rounded-md border border-border h-9 w-9 flex flex-col items-center justify-center"
           onClick={handleLastPage}
           disabled={currentPage === totalPages}
         >
-          &raquo;
+          <ChevronsRight size={14} />
         </button>
       </div>
       <PaginationDropdown
