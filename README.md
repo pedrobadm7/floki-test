@@ -127,8 +127,8 @@ src/
 
 The project follows semantic versioning:
 
-- 0.1.0: Initial Release
-- 1.0.0: Full-featured release with user management, pagination, and filtering.
+- 1.0.0: Initial Release
+- 1.1.0: Full-featured release with user management, pagination, hook tests, and filtering.
 
 Releases are tracked on GitHub under [Releases](https://github.com/yourusername/yourproject/releases).
 
