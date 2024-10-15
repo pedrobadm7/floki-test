@@ -91,7 +91,7 @@ The project handles edge cases like network connectivity (offline/online detecti
       # or
    yarn dev
    ```
-   
+
 ---
 
 ## Testing
