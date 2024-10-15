@@ -45,7 +45,7 @@ const FilteredSearch: React.FC<FilteredSearchProps> = ({ onSearch }) => {
               value="Male"
               checked={filters.gender === 'male'}
               onChange={() => handleGenderChange('male')}
-              ariaLabel="Filter by male"
+              aria-label="Filter by male"
             />
           </div>
 
@@ -56,7 +56,7 @@ const FilteredSearch: React.FC<FilteredSearchProps> = ({ onSearch }) => {
               value="Female"
               checked={filters.gender === 'female'}
               onChange={() => handleGenderChange('female')}
-              ariaLabel="Filter by female"
+              aria-label="Filter by female"
             />
           </div>
 
@@ -67,7 +67,7 @@ const FilteredSearch: React.FC<FilteredSearchProps> = ({ onSearch }) => {
               value="All"
               checked={filters.gender === null}
               onChange={() => handleGenderChange(null)}
-              ariaLabel="Filter by all genders"
+              aria-label="Filter by all genders"
             />
           </div>
         </fieldset>
