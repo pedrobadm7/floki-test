@@ -38,8 +38,6 @@ describe('Pagination Component', () => {
     const firstButton = screen.getByTestId('chevrons-left');
     const previousButton = screen.getByTestId('chevron-left-icon');
 
-    console.log({ firstButton, previousButton });
-
     expect(firstButton).toBeDisabled();
     expect(previousButton).toBeDisabled();
   });
