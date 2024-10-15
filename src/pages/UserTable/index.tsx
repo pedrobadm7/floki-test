@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '../../components/ui/Card';
 import Checkbox from '../../components/ui/CheckBox';
+import Error from '../../components/ui/Error';
 import FilteredSearch from '../../components/ui/FilteredSearch';
 import Loading from '../../components/ui/Loading';
 import Pagination from '../../components/ui/Pagination';
@@ -48,6 +49,7 @@ const UserTable = () => {
     data: users,
     isLoading,
     isError,
+    refetch,
   } = useFetchUsers(currentPage, itemsPerPage, searchQuery, filters);
 
   const handleSearch = (
@@ -74,12 +76,17 @@ const UserTable = () => {
 
   if (isLoading)
     return (
-      <div className="flex flex-1 justify-center items-center ">
+      <div className="flex flex-1 justify-center items-center">
         <Loading />
       </div>
     );
+
   if (isError)
-    return <p className="text-center text-red-500">Error fetching users.</p>;
+    return (
+      <div className="flex flex-1 justify-center items-center ">
+        <Error onRetry={refetch} />
+      </div>
+    );
 
   if (!users) return null;
 
