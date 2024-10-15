@@ -21,10 +21,10 @@ describe('Pagination Component', () => {
   it('renders the pagination component', () => {
     render(<Pagination {...defaultProps} />);
 
-    const firstButton = screen.getByText('«');
-    const previousButton = screen.getByText('‹');
-    const nextButton = screen.getByText('›');
-    const lastButton = screen.getByText('»');
+    const firstButton = screen.getByTestId('chevrons-left');
+    const previousButton = screen.getByTestId('chevron-left-icon');
+    const nextButton = screen.getByTestId('chevron-right-icon');
+    const lastButton = screen.getByTestId('chevrons-right');
 
     expect(firstButton).toBeInTheDocument();
     expect(previousButton).toBeInTheDocument();
@@ -35,8 +35,10 @@ describe('Pagination Component', () => {
   it('disables the first and previous buttons on the first page', () => {
     render(<Pagination {...defaultProps} currentPage={1} />);
 
-    const firstButton = screen.getByText('«');
-    const previousButton = screen.getByText('‹');
+    const firstButton = screen.getByTestId('chevrons-left');
+    const previousButton = screen.getByTestId('chevron-left-icon');
+
+    console.log({ firstButton, previousButton });
 
     expect(firstButton).toBeDisabled();
     expect(previousButton).toBeDisabled();
@@ -45,8 +47,8 @@ describe('Pagination Component', () => {
   it('disables the next and last buttons on the last page', () => {
     render(<Pagination {...defaultProps} currentPage={10} />);
 
-    const nextButton = screen.getByText('›');
-    const lastButton = screen.getByText('»');
+    const nextButton = screen.getByTestId('chevron-right-icon');
+    const lastButton = screen.getByTestId('chevrons-right');
 
     expect(nextButton).toBeDisabled();
     expect(lastButton).toBeDisabled();
@@ -55,10 +57,10 @@ describe('Pagination Component', () => {
   it('calls onPageChange when clicking next, previous, first, and last buttons', () => {
     render(<Pagination {...defaultProps} currentPage={5} />);
 
-    const firstButton = screen.getByText('«');
-    const previousButton = screen.getByText('‹');
-    const nextButton = screen.getByText('›');
-    const lastButton = screen.getByText('»');
+    const firstButton = screen.getByTestId('chevrons-left');
+    const previousButton = screen.getByTestId('chevron-left-icon');
+    const nextButton = screen.getByTestId('chevron-right-icon');
+    const lastButton = screen.getByTestId('chevrons-right');
 
     fireEvent.click(firstButton);
     fireEvent.click(previousButton);
