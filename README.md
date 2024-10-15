@@ -1,7 +1,10 @@
-# **$Floki - User Management Dashboard**
 
-<img src="public/assets/images/floki.svg" alt="Project Icon" width="150"/>
+<h1>
+  <img src="public/assets/images/floki.svg" alt="Project Icon" width="50" >
+  <strong>Floki – User Management Dashboard</strong>
+</h1>
 
+![image](https://github.com/user-attachments/assets/8f13e429-5be3-4a66-a265-dcbc7e8f9d9a)
 
 ## Overview
 This project is a user management dashboard that displays a table of users with filtering, pagination, and selection functionalities. It allows you to fetch users from an API, filter them by gender or search query, and paginate through the results. The interface also provides options to select and remove users from the list. It handles various edge cases, such as loading states, error handling, and offline support.
