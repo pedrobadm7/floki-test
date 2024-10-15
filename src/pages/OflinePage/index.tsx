@@ -6,7 +6,10 @@ const OfflinePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4"
+      data-testid="offline-page"
+    >
       <div className="w-full max-w-md p-8 bg-background rounded-lg shadow-md">
         <div className="flex items-center justify-center w-16 h-16 mx-auto bg-blue-100 rounded-full">
           <WifiOff className="w-8 h-8 text-blue-600" />
