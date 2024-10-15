@@ -6,7 +6,7 @@ interface ErrorProps {
 
 const Error: React.FC<ErrorProps> = ({ onRetry }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-10 bg-white rounded-lg shadow">
+    <div className="flex flex-col items-center justify-center p-10 bg-background rounded-lg shadow">
       <div className="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full">
         <AlertCircle className="w-8 h-8 text-red-600" />
       </div>
