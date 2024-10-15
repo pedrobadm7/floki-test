@@ -1,6 +1,10 @@
-# **$Floki - User Management Dashboard**
 
-<img src="public/assets/images/floki.svg" alt="Project Icon" width="150"/>
+<h1>
+  <img src="public/assets/images/floki.svg" alt="Project Icon" width="50" >
+  <strong>Floki – User Management Dashboard</strong>
+</h1>
+
+<img src="https://github.com/user-attachments/assets/8f13e429-5be3-4a66-a265-dcbc7e8f9d9a" alt="Project Icon" width="850"/>
 
 
 ## Overview
@@ -53,9 +57,11 @@ The project handles edge cases like network connectivity (offline/online detecti
 - **TypeScript**: Strongly typed programming language for JavaScript.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Zustand**: State management solution for handling global state.
+- **Lucide Icons**: Icon library used to display various icons in the UI.
 - **Axios**: HTTP client for making API requests and handling responses.
 - **React Query**: Data-fetching library for managing server-state, caching, and synchronizing data.
-- **Vitest**: Unit testing framework used for testing React components.
+- **React Testing Library**: Tool for testing React components by simulating user behavior.
+- **Vitest**: Testing framework and runner for writing and executing tests.
 
 ---
 
@@ -64,12 +70,12 @@ The project handles edge cases like network connectivity (offline/online detecti
 1. Clone the repository:
    ```bash
    git clone https://github.com/pedrobadm7/floki-test.git
-   cd your-repo
+   cd floki-test
     ```
    or using SSH
     ```bash
    git clone git@github.com:pedrobadm7/floki-test.git
-   cd your-repo
+   cd floki-test
     ```
 
 2. Install dependencies:
@@ -85,7 +91,7 @@ The project handles edge cases like network connectivity (offline/online detecti
       # or
    yarn dev
    ```
-   
+
 ---
 
 ## Testing
@@ -127,8 +133,8 @@ src/
 
 The project follows semantic versioning:
 
-- 0.1.0: Initial Release
-- 1.0.0: Full-featured release with user management, pagination, and filtering.
+- 1.0.0: Initial Release
+- 1.1.0: Full-featured release with user management, pagination, hook tests, and filtering.
 
 Releases are tracked on GitHub under [Releases](https://github.com/yourusername/yourproject/releases).
 
