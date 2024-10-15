@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# **$Floki - User Management Dashboard**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a user management dashboard that displays a table of users with filtering, pagination, and selection functionalities. It allows you to fetch users from an API, filter them by gender or search query, and paginate through the results. The interface also provides options to select and remove users from the list. It handles various edge cases, such as loading states, error handling, and offline support.
 
-Currently, two official plugins are available:
+It was built using React (with Vite), React Query, and Zustand for state management, while styled with Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project handles edge cases like network connectivity (offline/online detection) and provides error-handling mechanisms, including retries for failed queries. It uses react-query for fetching data, with pagination and search/filter capabilities.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Table of Contents
 
-- Configure the top-level `parserOptions` property like this:
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Versioning](#versioning)
+- [Contributing](#contributing)
+- [License](#license)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Features
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
-```
+- **User Table with Pagination**: View and manage a list of users.
+- **Search and Filter**: Search by name and filter by gender.
+- **State Management**: Manage selected and removed users using Zustand.
+- **Error Handling**: Retry failed queries and handle offline scenarios.
+- **Responsive UI**: Tailwind CSS for responsive design.
+- **Offline Mode**: Detect and handle offline mode with a custom page.
+- **Edge Case Handling**: Retry actions, manage loading/error states.
+- **Custom Hooks**: Optimized with hooks like `useFetchUsers` and `useMediaQuery`.
