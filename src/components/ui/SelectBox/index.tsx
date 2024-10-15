@@ -3,6 +3,7 @@ interface SelectBoxProps {
   checked: boolean;
   name?: string;
   value: string;
+  ariaLabel?: string;
   onChange: () => void;
 }
 
@@ -11,11 +12,12 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   checked,
   name,
   value,
+  ariaLabel,
   onChange,
 }) => (
-  <>
-    {name && (
-      <label htmlFor={name} className="text-sm text-text_body font-medium">
+  <div className="flex items-center">
+    {value && (
+      <label htmlFor={id} className="mr-2 text-sm text-text_body font-medium">
         {value}
       </label>
     )}
@@ -25,10 +27,11 @@ const SelectBox: React.FC<SelectBoxProps> = ({
       id={id}
       checked={checked}
       value={value}
-      className="form-checkbox h-5 w-5 text-blue-600"
+      className="form-radio h-5 w-5 text-blue-600"
       onChange={onChange}
+      aria-label={ariaLabel || value}
     />
-  </>
+  </div>
 );
 
 export default SelectBox;
