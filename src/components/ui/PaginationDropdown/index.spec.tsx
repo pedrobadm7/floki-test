@@ -59,7 +59,7 @@ describe('PaginationDropdown Component', () => {
 
     expect(screen.getByText(/5 \/ page/i)).toBeInTheDocument();
 
-    fireEvent.click(button); // close the dropdown
+    fireEvent.click(button);
     expect(screen.queryByText(/5 \/ page/i)).not.toBeInTheDocument();
   });
 });
