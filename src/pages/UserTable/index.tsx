@@ -9,6 +9,7 @@ import {
 } from '../../components/ui/Card';
 import Checkbox from '../../components/ui/CheckBox';
 import FilteredSearch from '../../components/ui/FilteredSearch';
+import Loading from '../../components/ui/Loading';
 import Pagination from '../../components/ui/Pagination';
 import {
   Table,
@@ -71,7 +72,12 @@ const UserTable = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="flex flex-1 justify-center items-center ">
+        <Loading />
+      </div>
+    );
   if (isError)
     return <p className="text-center text-red-500">Error fetching users.</p>;
 
