@@ -34,3 +34,31 @@ The project handles edge cases like network connectivity (offline/online detecti
 - **Offline Mode**: Detect and handle offline mode with a custom page.
 - **Edge Case Handling**: Retry actions, manage loading/error states.
 - **Custom Hooks**: Optimized with hooks like `useFetchUsers` and `useMediaQuery`.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** (v16+ recommended)
+- **npm** or **yarn**
+
+### Instalation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/pedrobadm7/floki-test.git
+   cd your-repo```
+
+   or using SSH
+
+    ```bash
+   git clone git@github.com:pedrobadm7/floki-test.git
+   cd your-repo```
+
+2. Install dependencies:
+    ```bash
+    npm install
+      # or
+    yarn install```
