@@ -4,7 +4,8 @@
   <strong>Floki – User Management Dashboard</strong>
 </h1>
 
-![image](https://github.com/user-attachments/assets/8f13e429-5be3-4a66-a265-dcbc7e8f9d9a)
+<img src="https://github.com/user-attachments/assets/8f13e429-5be3-4a66-a265-dcbc7e8f9d9a" alt="Project Icon" width="850"/>
+
 
 ## Overview
 This project is a user management dashboard that displays a table of users with filtering, pagination, and selection functionalities. It allows you to fetch users from an API, filter them by gender or search query, and paginate through the results. The interface also provides options to select and remove users from the list. It handles various edge cases, such as loading states, error handling, and offline support.
@@ -56,9 +57,11 @@ The project handles edge cases like network connectivity (offline/online detecti
 - **TypeScript**: Strongly typed programming language for JavaScript.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Zustand**: State management solution for handling global state.
+- **Lucide Icons**: Icon library used to display various icons in the UI.
 - **Axios**: HTTP client for making API requests and handling responses.
 - **React Query**: Data-fetching library for managing server-state, caching, and synchronizing data.
-- **Vitest**: Unit testing framework used for testing React components.
+- **React Testing Library**: Tool for testing React components by simulating user behavior.
+- **Vitest**: Testing framework and runner for writing and executing tests.
 
 ---
 
