@@ -16,6 +16,7 @@ export const useFetchUsers = (
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: false,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 3000), // Backoff exponencial
   });
 
   return { data, isLoading, isError, refetch };
