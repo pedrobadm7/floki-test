@@ -223,7 +223,9 @@ describe('UserTable Component', () => {
     const searchInput = screen.getByRole('searchbox');
     fireEvent.change(searchInput, { target: { value: 'Fabiola' } });
 
-    const genderFilter = screen.getByDisplayValue(/female/i);
+    const genderFilter = screen.getByRole('radio', {
+      name: /filter by female/i,
+    });
     fireEvent.click(genderFilter);
     expect(genderFilter).toBeChecked();
 

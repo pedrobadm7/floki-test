@@ -25,6 +25,7 @@ The project handles edge cases like network connectivity (offline/online detecti
 - [Testing](#testing)
 - [Project Structure](#project-structure)
 - [Versioning](#versioning)
+- [Coverage](#coverage)
 - [Filtering Challenges](#filtering-challenges)
 
 ---
@@ -137,6 +138,12 @@ The project follows semantic versioning:
 - 1.1.0: Full-featured release with user management, pagination, hook tests, and filtering.
 
 Releases are tracked on GitHub under [Releases](https://github.com/yourusername/yourproject/releases).
+
+---
+
+## Test Coverage
+
+![image](https://github.com/user-attachments/assets/c0f3ed85-aec5-4962-9cf7-c352aa3cc4be)
 
 ---
 
